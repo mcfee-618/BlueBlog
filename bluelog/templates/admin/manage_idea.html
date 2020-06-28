@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+
+{% block title %}Manage Ideas{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Ideas
+        <small class="text-muted">{{ pagination.total }}</small>
+    </h1>
+</div>
+<form method="post" action="{{url_for('.new_idea')}}">
+    <!--Form 类有一个 hidden_tag 方法， 它在一个隐藏的 DIV 标签中渲染任何隐藏的字段，包括 CSRF 字段-->
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.content.label }}<br>
+        {{ form.content(size=200) }}<br>
+    </p>
+    {% for error in form.content.errors %}
+    {{error}}
+    {% endfor %}
+
+    <p>{{ form.submit() }}</p>
+
+</form>
+{% if ideas %}
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>addtime.</th>
+        <th>progrss</th>
+        <th>content</th>
+        <th>solve time</th>
+        <th>action</th>
+    </tr>
+    </thead>
+    {% for idea in ideas %}
+    <tr>
+        <td>{{ moment(idea.add_time).format('YYYY-M-D h:mm ') }}</td>
+        <td>
+            <div class="progress">
+                <div class="progress-bar" style="width:{{idea.progress}}%;">{{idea.progress}}%</div>
+            </div>
+        </td>
+        <td>{{ idea.content }}</td>
+        <td>
+            {% if idea.solve_time %}
+            {{ moment(idea.solve_time).format('YYYY年M月D日, h:mm ') }}
+            {% else %}
+            <p>暂时未完成</p>
+            {% endif %}
+        </td>
+        <td>
+            <a class="btn btn-info btn-sm" href="{{ url_for('.edit_idea', idea_id=idea.id) }}">Edit</a>
+
+            <a class="btn btn-info btn-sm" href="{{ url_for('.delete_idea', idea_id=idea.id) }}">Delete</a>
+
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<div class="page-footer">{{ render_pagination(pagination) }}</div>
+{% else %}
+<div class="tip"><h5>No posts.</h5></div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block title %}Edit Link{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Edit Idea</h1>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" action="{{url_for('.edit_idea',idea_id=idea_id)}}">
+            <!--Form 类有一个 hidden_tag 方法， 它在一个隐藏的 DIV 标签中渲染任何隐藏的字段，包括 CSRF 字段-->
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.content.label }}<br>
+                {{ form.content(size=200) }}<br>
+            </p>
+            {% for error in form.content.errors %}
+            {{error}}
+            {% endfor %}
+            <p>
+                {{ form.progress.label }}<br>
+                {{ form.progress() }}<br>
+            </p>
+
+            <p>{{ form.submit() }}</p>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

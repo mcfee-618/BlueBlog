@@ -1,0 +1,7 @@
+[2020-03-02 19:01:18 +0800] [1949] [INFO] Starting gunicorn 19.9.0
+[2020-03-02 19:01:18 +0800] [1949] [INFO] Listening at: http://0.0.0.0:8000 (1949)
+[2020-03-02 19:01:18 +0800] [1949] [INFO] Using worker: sync
+[2020-03-02 19:01:18 +0800] [1952] [INFO] Booting worker with pid: 1952
+[2020-03-02 19:01:34 +0800] [1949] [INFO] Handling signal: int
+[2020-03-02 19:01:34 +0800] [1952] [INFO] Worker exiting (pid: 1952)
+[2020-03-02 19:01:34 +0800] [1949] [INFO] Shutting down: Master
