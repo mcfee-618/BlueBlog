@@ -273,8 +273,8 @@ def upload_image():
         return upload_fail('Image only!')
     postfix = f.filename.rsplit('.', 1)[1].lower()
     prefix = f.filename.rsplit('.', 1)[0].lower()
-    current_time = str(time.strftime('%Y%m%d', time.localtime()))+"_"
-    new_filename = current_time + str(hash(prefix)) + "." + postfix
+    current_time = str(time.strftime('%Y%m%d', time.localtime()))+"_" 
+    new_filename = current_time + str(abs(hash(prefix))) + "." + postfix
     f.save(os.path.join(current_app.config['BLUELOG_UPLOAD_PATH'], new_filename))
     url = url_for('.get_image', filename=new_filename)
     return upload_success(url, f.filename)
