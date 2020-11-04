@@ -7,6 +7,7 @@
 """
 import os
 import sys
+from urllib.parse import quote_plus as urlquote
 
 basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
@@ -62,7 +63,7 @@ class TestingConfig(BaseConfig):
 
 
 class ProductionConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = prefix + os.path.join(basedir, 'blogfei-dev.db')
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:%s@127.0.0.1:4406/blueblog?unix_socket=/app/fpx/mysql/mysql-5.7.26-linux-glibc2.12-x86_64/data/mysql.sock" % urlquote('cat@2020')
     #SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', prefix + os.path.join(basedir, 'data.db'))
 
 
